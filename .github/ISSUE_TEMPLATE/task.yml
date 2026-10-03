@@ -1,0 +1,26 @@
+name: Task
+description: A step of a story
+type: Task
+projects: ["Storagie/5"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Perguntas
+      value: "- [ ] "
+  - type: textarea
+    id: specification
+    attributes:
+      label: Especificação
+      value: "- "
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      value: "- [ ] "

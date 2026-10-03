@@ -1,0 +1,31 @@
+name: Story
+description: A deliverable that explains what and why
+type: Story
+projects: ["Storagie/5"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Perguntas
+      value: "- [ ] "
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      value: "- [ ] "
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validação
+      value: "1. "
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Fora do escopo
+      value: "- "

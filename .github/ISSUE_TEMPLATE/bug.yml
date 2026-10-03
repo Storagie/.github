@@ -1,0 +1,30 @@
+name: Bug
+description: Something that does not work as expected
+type: Bug
+projects: ["Storagie/5"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexto
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Perguntas
+      value: "- [ ] "
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reprodução
+      value: |
+        1. 
+
+        **Atual:** 
+        **Esperado:** 
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      value: "- [ ] "
