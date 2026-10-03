@@ -42,6 +42,7 @@ jobs:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: Storagie
+          permission-contents: write
           permission-issues: read
           permission-pull-requests: write
           permission-organization-projects: write
