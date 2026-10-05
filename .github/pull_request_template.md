@@ -1,7 +1,7 @@
-## What
+## Context
 
-## Why
+## Changes
 
-## Verified
+## Tests
 
 ## Notes for review
