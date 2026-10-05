@@ -1,0 +1,64 @@
+name: Flow
+
+on:
+  push:
+    branches: [main, develop]
+  issues:
+    types: [opened, reopened, closed]
+  pull_request:
+    types: [opened, ready_for_review, converted_to_draft, closed]
+  pull_request_review:
+    types: [submitted]
+  workflow_run:
+    workflows: ['**', '!Flow']
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  group: flow-${{ github.repository }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.workflow_run.pull_requests[0].number || github.run_id }}
+  queue: max
+
+jobs:
+  move:
+    if: github.event.workflow_run.name != github.workflow
+    runs-on: ubuntu-latest
+    steps:
+      - id: reader
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: Storagie
+          repositories: core
+          permission-contents: read
+
+      - uses: actions/checkout@v7
+        with:
+          repository: Storagie/core
+          ref: main
+          token: ${{ steps.reader.outputs.token }}
+          path: core
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: Storagie
+          repositories: ${{ github.event.repository.name == 'core' && 'core' || format('core,{0}', github.event.repository.name) }}
+          permission-actions: read
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-organization-projects: write
+          permission-workflows: write
+
+      - run: node core/flow/src/main.ts
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
