@@ -53,6 +53,7 @@ jobs:
           owner: Storagie
           repositories: ${{ github.event.repository.name == 'core' && 'core' || format('core,{0}', github.event.repository.name) }}
           permission-actions: read
+          permission-checks: read
           permission-contents: write
           permission-issues: write
           permission-pull-requests: write
